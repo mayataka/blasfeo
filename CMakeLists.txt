@@ -36,7 +36,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 # installation directory ( has to be before `project()` )
-set(CMAKE_INSTALL_PREFIX "/opt/blasfeo" CACHE STRING "Installation path")
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
 
 project(blasfeo C ASM)
 
@@ -1192,11 +1192,12 @@ target_include_directories(blasfeo
 		$<INSTALL_INTERFACE:${BLASFEO_HEADERS_INSTALLATION_DIRECTORY}>)
 #		$<INSTALL_INTERFACE:include/blasfeo/include>)
 
+include(GNUInstallDirs)
 
 install(TARGETS blasfeo EXPORT blasfeoConfig
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
-	RUNTIME DESTINATION bin)
+  	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  	RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/blasfeo)
 
 
 install(EXPORT blasfeoConfig DESTINATION cmake)
